@@ -25,7 +25,7 @@ app.use(
 
 app.use(cors({
   origin: [
-    "http://localhost:3000",
+    // "http://localhost:3000",
     "https://nursingquestions.smsitsolutions.com.au",
   ],
   credentials: true,
