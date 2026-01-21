@@ -72,9 +72,10 @@ exports.register = async (req, res) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "lax",
-            maxAge: 7 * 24 * 60 * 60 * 1000, // 1 day
+            maxAge: 7 * 24 * 60 * 60 * 1000,
             path: "/",
         });
+
 
         // ✅ Return created user info
         return res.status(201).json({
@@ -130,12 +131,14 @@ exports.login = async (req, res) => {
 
         // ✅ SET JWT IN COOKIE
         res.cookie("accessToken", token, {
-            httpOnly: true,              // VERY IMPORTANT
-            secure: true,
-            sameSite: "lax",
-            maxAge: 7 * 24 * 60 * 60 * 1000, // 1 day
+            httpOnly: true,
+            secure: true, // must be true for HTTPS
+            sameSite: "none", // for cross-subdomain requests
+            domain: ".smsitsolutions.com.au", // share between frontend/backend
+            maxAge: 7 * 24 * 60 * 60 * 1000,
             path: "/",
         });
+
 
         return res.json({
             message: "Login successful",
