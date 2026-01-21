@@ -1,5 +1,5 @@
 const WINDOW_MS = 10 * 1000; // 10 seconds
-const MAX_REQUESTS = 50;
+const MAX_REQUESTS = 30;
 
 const ipStore = new Map();
 

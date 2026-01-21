@@ -4,6 +4,9 @@ const router = express.Router();
 const groupController = require("../controllers/questionsgroup.controller");
 const authMiddleware = require("../middlewares/auth.middleware"); // sets req.user
 const permissionMiddleware = require("../middlewares/permission.middleware");
+const { rateLimiter } = require("../middlewares/rateLimiter");
+router.use(rateLimiter)
+
 router.use(authMiddleware);
 router.use(permissionMiddleware)
 

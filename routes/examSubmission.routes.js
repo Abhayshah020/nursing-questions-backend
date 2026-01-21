@@ -4,7 +4,9 @@ const router = express.Router();
 const authMiddleware = require("../middlewares/auth.middleware"); // sets req.user
 const examSubmissionController = require("../controllers/examSubmission.controller");
 const permissionMiddleware = require("../middlewares/permission.middleware");
+const { rateLimiter } = require("../middlewares/rateLimiter");
 router.use(authMiddleware);
+router.use(rateLimiter)
 
 router.post("/", examSubmissionController.createExamSubmission);
 router.use(permissionMiddleware)

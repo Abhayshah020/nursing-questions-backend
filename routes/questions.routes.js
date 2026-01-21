@@ -2,6 +2,8 @@ const router = require('express').Router();
 const questionController = require('../controllers/question.controller');
 const auth = require('../middlewares/auth.middleware');
 const permissionMiddleware = require('../middlewares/permission.middleware');
+const { rateLimiter } = require('../middlewares/rateLimiter');
+router.use(rateLimiter)
 
 router.use(auth);
 
