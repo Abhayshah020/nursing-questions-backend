@@ -168,6 +168,14 @@ exports.deleteQuestion = async (req, res) => {
 /**
  * GET random group with questions and options for mock test
  */
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
 exports.getRandomGroup = async (req, res) => {
     try {
         // Count total groups
@@ -187,6 +195,18 @@ exports.getRandomGroup = async (req, res) => {
                     include: [{ model: Option, as: "options" }],
                 },
             ],
+        });
+
+        if (!group) return res.status(404).json({ message: "Group not found" });
+
+        // Shuffle questions
+        group.questions = shuffleArray(group.questions);
+
+        // Shuffle options for each question
+        group.questions.forEach(question => {
+            if (question.options && question.options.length > 0) {
+                question.options = shuffleArray(question.options);
+            }
         });
 
         res.status(200).json(group);
